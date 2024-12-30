@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { record_list } from "../../assets/assets.js";
 import { Switch, Typography } from "antd";
 import "./Search.css";
+import logo from "../../assets/logo.png";
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredrecords, setFilteredrecords] = useState(record_list);
@@ -17,18 +18,27 @@ const Search = () => {
   }
   return (
     <>
-      <div className="rec-nav"></div>
-      <div className="hero-buttons search-btn">
-        <input
-          type="text"
-          placeholder="Search for a record..."
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-        <button type="button" className="btn btn-red">
-          Search
-        </button>
+      <div className="rec-nav">
+        <div>
+          <img src={logo} className="logo" alt="aasiyan-logo" />
+        </div>
+        <div>
+          <h1 className="logo-title">Aasiyan</h1>
+        </div>
       </div>
+      <center>
+        <div className="hero-buttons search-btn">
+          <input
+            type="text"
+            placeholder="Search for a record..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          <button type="button" className="btn btn-red">
+            Search
+          </button>
+        </div>
+      </center>
       {filteredrecords.length === 0 ? (
         <p className="not-found">record not found</p>
       ) : (

@@ -1,5 +1,6 @@
 import rec_1 from "./rec_img_1.jpeg";
 import rec_2 from "./rec_img_2.jpeg";
+import rec_3 from "./rec_img_3.jpeg";
 
 export const record_list = [
   {
@@ -17,5 +18,13 @@ export const record_list = [
     date: "11-10-2023",
     description:
       "To mark World Mental Health Day, KPR Institute of Engineering and Technology in Coimbatore achieved two world records to highlight the importance of mental health. The institute hosted a bike rally with the most participants and a laughter yoga session with the largest gathering, both taking place at the KPRIET campus.",
+  },
+  {
+    _id: "3",
+    name: "Theni District Shines with Bharatanatyam Achievement in Asia Book of Records",
+    image: rec_3,
+    date: "03-03-2023",
+    description:
+      "Asia's Book of World Records for an achievement in Tamil Nadu. It highlights the accomplishment of setting a record during a significant event held at Podhiyam Varthaga Sangam in Theni district. The record, acknowledged by the head of the Asia Book of Records, was presented in the presence of several dignitaries, including notable personalities from the medical and educational fields. This recognition aims to inspire students from across the nation. It emphasizes the importance of such achievements and celebrates the excellence demonstrated by the recipient, symbolizing pride and motivation for future generations.",
   },
 ];
