@@ -1,15 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
+import ReactDOM from "react-dom/client";
 import App from "./App";
-import counterReducer from "./reducers";
+import reportWebVitals from "./reportWebVitals";
 
-const store = createStore(counterReducer);
-
-ReactDOM.render(
-  <Provider store={store}>
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
     <App />
-  </Provider>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
+
+reportWebVitals();
+
+// If you don't need performance reporting, you can comment or remove this line
+// import reportWebVitals from './reportWebVitals';
+// reportWebVitals();

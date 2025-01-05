@@ -1,3 +1,6 @@
+html {
+  resize-observer-unhandled-rejection: ignore;
+}
 * {
   background-color: #000;
 }
@@ -25,6 +28,10 @@
   font-weight: 400;
   height: 54px;
   margin-top: -7px;
+}
+.btn-red:hover {
+  background-color: rgb(134, 56, 56);
+  color: white;
 }
 .records-card {
   border: 3px solid red;
@@ -174,7 +181,13 @@
     margin-top: -160px;
   }
   .btn-red {
-    margin-top: 0px;
+    margin-top: -4px;
+  }
+  .hero-buttons input {
+    padding: 7px 14px 8px 14px;
+    font-size: 17px;
+    height: 56px;
+    width: 204px;
   }
 }
 .antd-style {
@@ -192,4 +205,5 @@
 .logo-title {
   color: white;
   font-size: 30px;
+  margin-bottom: 4px;
 }

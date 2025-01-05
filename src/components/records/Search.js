@@ -1,21 +1,50 @@
-import React, { useState } from "react";
-import { record_list } from "../../assets/assets.js";
+import React, { useState, useEffect } from "react";
 import { Switch, Typography } from "antd";
+import { supabase } from "../../supabaseClient.js";
 import "./Search.css";
 import logo from "../../assets/logo.png";
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredrecords, setFilteredrecords] = useState(record_list);
+  const [items, setItems] = useState([]);
+  const [filteredrecords, setFilteredrecords] = useState(items);
   const [ellipsis, setEllipsis] = useState(true);
   const { Paragraph } = Typography;
   function handleSearch(e) {
     const searchValue = e.target.value;
     setSearchTerm(searchValue);
-    const filtered = record_list.filter((record) =>
-      record.name.toLowerCase().includes(searchValue.toLowerCase())
+    const filtered = items.filter(
+      (record) =>
+        record.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        record.description.toLowerCase().includes(searchValue.toLowerCase()) ||
+        record.date.toLowerCase().includes(searchValue.toLowerCase())
     );
     setFilteredrecords(filtered);
   }
+
+  const fetchItems = async () => {
+    const { data, error } = await supabase.from("recordmaster").select("*");
+    if (error) console.error(error);
+    else setItems(data);
+  };
+  useEffect(() => {
+    fetchItems();
+  }, []);
+  useEffect(() => {
+    setFilteredrecords(items);
+  }, [items]);
+  let debounceTimeout;
+  const handleResize = () => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+      console.log("Resizing...");
+    }, 300);
+  };
+
+  window.addEventListener("resize", handleResize);
+  const formatDate = (date) => {
+    const [year, month, day] = date.split("-");
+    return `${day}-${month}-${year}`;
+  };
   return (
     <>
       <div className="rec-nav">
@@ -43,18 +72,20 @@ const Search = () => {
         <p className="not-found">record not found</p>
       ) : (
         <div className="record-grid">
-          {filteredrecords.map((record) => (
-            <div key={record.id} className="records-margine">
+          {filteredrecords.map((item) => (
+            <div key={item.id} className="records-margine">
               <div className="records-card">
-                <img
-                  src={record.image}
-                  alt={record.name}
-                  className="record-img"
-                />
+                {item.image && (
+                  <img
+                    src={`https://vjvrzdtysyorsntbmrwu.supabase.co/storage/v1/object/public/images/${item.image}`}
+                    alt={item.name}
+                    className="record-img"
+                  />
+                )}
                 <div className="record-content">
-                  <h2 className="common-colour record-title">{record.name}</h2>
+                  <h2 className="common-colour record-title">{item.name}</h2>
                   <h3 className="common-colour record-date">
-                    Held at : {record.date}
+                    Held on : {item.date && formatDate(item.date)}
                   </h3>
 
                   <Switch
@@ -72,10 +103,16 @@ const Search = () => {
                         ? { rows: 6, expandable: true, symbol: "more" }
                         : false
                     }
+                    style={{ overflowWrap: "break-word" }}
                   >
-                    {record.description}
+                    {item.description}
                   </Paragraph>
                 </div>
+                <center>
+                  <a href={item.link} target="_blank" rel="noreferrer">
+                    <button className="btn btn-red">View Video</button>
+                  </a>
+                </center>
               </div>
             </div>
           ))}
